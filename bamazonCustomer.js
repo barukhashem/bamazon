@@ -1,7 +1,7 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 
-// creates the connection information for the sql database:
+// This creates the connection information for the sql database:
 var connection = mysql.createConnection({
     host: "localhost",
 
@@ -16,7 +16,7 @@ var connection = mysql.createConnection({
     database: "bamazon_db"
 });
 
-// connects to the mysql server and sql database:
+// This connects to the mysql server and sql database:
 connection.connect(function (err) {
     if (err) throw err;
     // // runs the start function after the connection is made to prompt the user:
@@ -24,7 +24,7 @@ connection.connect(function (err) {
     start();
 });
 
-// function that prompts the user for which action they should take:
+// This function prompts the user for which action they should take:
 function start() {
     inquirer
         .prompt({
@@ -34,7 +34,7 @@ function start() {
             choices: ["SHOP", "EXIT"]
         })
         .then(function (answer) {
-            // based on their answer, either calls the shop or the exit functions:
+            // Based on the user's answer, this either calls the shop or the exit functions:
             if (answer.shopOrExit === "SHOP") {
                 queryItems();
             } else {
@@ -44,58 +44,59 @@ function start() {
 }
 
 function queryItems() {
-    connection.query("SELECT * FROM products", function (err, res) {
-        console.table(res);
-        makeSelection();
-    });
-}
-
-// function to handle item selection:
-function makeSelection() {
-    // query the database for all items being selected:
     connection.query("SELECT * FROM products", function (err, results) {
-        if (err) throw err;
-        // once all items are displayed, prompts the user to select item(s) they want to buy:
+        console.table(results);
+        // makeSelection();
+        //     });
+        // }
+
+        // // This function handles item selection:
+        // function makeSelection() {
+        //     // This queries the database for all items being selected:
+        //     connection.query("SELECT * FROM products", function (err, results) {
+        // if (err) throw err;
+        // Once all items are displayed, this prompts the user to select items they want to buy:
         inquirer
             .prompt([
                 {
-                    name: "choice",
-                    type: "rawlist",
-                    choices: function () {
-                        var choiceArray = [];
-                        for (var i = 0; i < results.length; i++) {
-                            choiceArray.push(results[i].item_ID);
-                        }
-                        return choiceArray;
-                    },
+                    name: "item",
+                    type: "input",
                     message: "What is the product ID of the item you want to buy?"
                 },
                 {
                     name: "quantity",
                     type: "input",
                     message: "How many do you want to buy?",
+                    validate: function (value) {
+                        if (isNaN(value) === false) {
+                            return true;
+                        }
+                        return false;
+                    }
                 }
             ])
             .then(function (answer) {
-                // retrieves the information of the chosen item:
+                // This retrieves the information about the chosen item:
                 var chosenItem;
                 for (var i = 0; i < results.length; i++) {
-                    if (results[i].item_ID === answer.choice) {
+                    if (results[i].item_id === parseInt(answer.item)) {
                         chosenItem = results[i];
                     }
                 }
 
-                // determines if product quantity is sufficient:
-                if (chosenItem.highest_bid < parseInt(answer.bid)) {
-                    // product quantity is sufficient, so updates db, notifies the user, and starts over:
-                    connection.query(
+                console.log(chosenItem);
+
+                // This determines if product quantity is sufficient:
+                if (chosenItem.stock_quantity >= parseInt(answer.quantity)) {
+                    // If product quantity is sufficient, this updates the db, notifies the user of successful order placement, then starts over:
+                    const query = connection.query(
                         "UPDATE products SET ? WHERE ?",
                         [
                             {
-                                highest_bid: answer.bid
+                                stock_quantity: chosenItem.stock_quantity - (parseInt(answer.quantity))
                             },
                             {
-                                id: chosenItem.id
+                                item_id: chosenItem.item_id
                             }
                         ],
                         function (error) {
@@ -104,11 +105,12 @@ function makeSelection() {
                             start();
                         }
                     );
+                    console.log(query.sql);
                 }
                 else {
-                    // insufficient product quantity, so apologize and start over:
+                    // If insufficient product quantity, then this  notifies the user of insufficient product quantity, apologizes, then starts over:
                     console.log("We're sorry. Insufficient product quantity. Please select another item.");
-                    // re-prompts the user to shop or exit:
+                    // This re-prompts the user to shop or exit:
                     start();
                 }
             });
@@ -116,46 +118,5 @@ function makeSelection() {
 }
 
 
-// // function to handle item selection:
-// function postSelection() {
-//     // prompts for info about the item being selected:
-//     inquirer
-//         .prompt([
-//             {
-//                 name: "item",
-//                 type: "input",
-//                 message: "What is the product ID of the item you want to buy?"
-//             },
-//             {
-//                 name: "quantity",
-//                 type: "input",
-//                 message: "How many do you want to buy?",
 
-//                 validate: function (value) {
-//                     if (isNaN(value) === false) {
-//                         return true;
-//                     }
-//                     return false;
-//                 }
-//             }
-//         ])
-//         .then(function (answer) {
-//             // when finished prompting, inserts a new item into the db with that info:
-//             connection.query(
-//                 "INSERT INTO products SET ?",
-//                 {
-//                     item_name: answer.item,
-//                     category: answer.category,
-//                     starting_bid: answer.startingBid || 0,
-//                     highest_bid: answer.startingBid || 0
-//                 },
-//                 function (err) {
-//                     if (err) throw err;
-//                     console.log("Your order was created successfully!");
-//                     // re-prompts the user if they want to shop or exit:
-//                     start();
-//                 }
-//             );
-//         });
-// }
 
