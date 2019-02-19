@@ -33,19 +33,19 @@ INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Boots", "Gear", 125, 25);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Pipes", "Performance", 875, 25);
+VALUES ("Tires", "Service", 750, 50);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("System Upgrade", "Performance", 2375, 20);
+VALUES ("Pipes", "Service", 875, 25);
+
+INSERT INTO products (product_name, department_name, price, stock_quantity)
+VALUES ("System Upgrade", "Service", 2375, 20);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Custom Paint", "Service", 1500, 15);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Tires", "Service", 750, 50);
-
-INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Custom Chrome", "Service", 1500, 20);
+VALUES ("Wind Whip", "Accessories", 50, 10);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Luggage Rack", "Accessories", 125, 15);
