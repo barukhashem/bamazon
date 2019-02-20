@@ -19,12 +19,10 @@ var connection = mysql.createConnection({
 // This connects to the mysql server and sql database:
 connection.connect(function (err) {
     if (err) throw err;
-    // // runs the start function after the connection is made to prompt the user:
-    // queryItems();
     start();
 });
 
-// This function prompts the user for which action they should take:
+// This function prompts the user to either shop or exit:
 function start() {
     inquirer
         .prompt({
@@ -43,25 +41,18 @@ function start() {
         });
 }
 
+// This function queries the database and displays all products to the terminal:
 function queryItems() {
     connection.query("SELECT * FROM products", function (err, results) {
         console.table(results);
-        // makeSelection();
-        //     });
-        // }
 
-        // // This function handles item selection:
-        // function makeSelection() {
-        //     // This queries the database for all items being selected:
-        //     connection.query("SELECT * FROM products", function (err, results) {
-        // if (err) throw err;
         // Once all items are displayed, this prompts the user to select items they want to buy:
         inquirer
             .prompt([
                 {
                     name: "item",
                     type: "input",
-                    message: "What is the product ID of the item you want to buy?"
+                    message: "What is the item's product ID that you want to buy?"
                 },
                 {
                     name: "quantity",
@@ -84,7 +75,7 @@ function queryItems() {
                     }
                 }
 
-                console.log(chosenItem);
+                // console.log(chosenItem);
 
                 // This determines if product quantity is sufficient:
                 if (chosenItem.stock_quantity >= parseInt(answer.quantity)) {
@@ -101,14 +92,14 @@ function queryItems() {
                         ],
                         function (error) {
                             if (error) throw err;
-                            console.log("Your order was placed successfully.");
+                            console.log("Your order was placed successfully. Your total cost is $" + chosenItem.price * parseInt(answer.quantity) + ".");
                             start();
                         }
                     );
-                    console.log(query.sql);
+                    // console.log(query.sql);
                 }
                 else {
-                    // If insufficient product quantity, then this  notifies the user of insufficient product quantity, apologizes, then starts over:
+                    // If insufficient product quantity, then this notifies the user of insufficient product quantity, apologizes, then starts over:
                     console.log("We're sorry. Insufficient product quantity. Please select another item.");
                     // This re-prompts the user to shop or exit:
                     start();

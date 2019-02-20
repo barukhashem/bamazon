@@ -24,31 +24,31 @@ CREATE TABLE products (
 
 -- Creates new rows containing data in all named columns --
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Helmet", "Gear", 135, 30);
+VALUES ("Helmet", "Gear", 135, 5);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Jacket", "Gear", 375, 50);
+VALUES ("Jacket", "Gear", 375, 5);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Boots", "Gear", 125, 25);
+VALUES ("Chaps", "Gear", 275, 5);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Tires", "Service", 750, 50);
+VALUES ("Boots", "Gear", 150, 5);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Pipes", "Service", 875, 25);
+VALUES ("Tires", "Service", 750, 5);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("System Upgrade", "Service", 2375, 20);
+VALUES ("Pipes", "Service", 875, 5);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Custom Paint", "Service", 1500, 15);
+VALUES ("Foot Pegs", "Accessories", 60, 5);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Wind Whip", "Accessories", 50, 10);
+VALUES ("Wind Whip", "Accessories", 50, 5);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Luggage Rack", "Accessories", 125, 15);
+VALUES ("Luggage Rack", "Accessories", 250, 5);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Flag", "Accessories", 25, 20);
+VALUES ("Flag", "Accessories", 25, 5);

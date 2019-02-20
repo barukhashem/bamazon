@@ -1,69 +1,174 @@
 # Node.js & MySQL
 
-## Overview
-
-In this activity, you'll be creating an Amazon-like storefront with the MySQL skills you learned this unit. The app will take in orders from customers and deplete stock from the store's inventory. As a bonus task, you can program your app to track product sales across your store's departments and then provide a summary of the highest-grossing departments in the store.
-
-Make sure you save and require the MySQL and Inquirer npm packages in your homework files--your app will need them for data input and storage.
-
-## Submission Guide
-
-Make sure you use the normal GitHub. Because this is a CLI App, there will be no need to deploy it to Heroku. This time, though, you need to include screenshots, a gif, and/or a video showing us that you got the app working with no bugs. You can include these screenshots or a link to a video in a `README.md` file.
-
-* Include screenshots (or a video) of typical user flows through your application (for the customer and if relevant the manager/supervisor). This includes views of the prompts and the responses after their selection (for the different selection options).
-
-* Include any other screenshots you deem necessary to help someone who has never been introduced to your application understand the purpose and function of it. This is how you will communicate to potential employers/other developers in the future what you built and why, and to show how it works. 
-
-* Because screenshots (and well-written READMEs) are extremely important in the context of GitHub, this will be part of the grading.
-
-If you haven't written a markdown file yet, [click here for a rundown](https://guides.github.com/features/mastering-markdown/), or just take a look at the raw file of these instructions.
-
-### Submission on BCS
-
-* Please submit the link to the Github Repository!
-
-## Instructions
-
 ### Challenge #1: Customer View (Minimum Requirement)
 
-1. Create a MySQL Database called `bamazon`.
+### Overview
 
-2. Then create a Table inside of that database called `products`.
+In this assignment, I created an Amazon-like storefront CLI (command-line interface or command language interpreter) app called `bamazon` that accepts orders from customers and depletes stock from the storefront's inventory.
 
-3. The products table should have each of the following columns:
+### Steps of creation:
+
+1. I created a MySQL Database called `bamazon`.
+
+2. I created a Table inside of that database called `products`.
+
+3. The products table each has the following five columns:
 
    * item_id (unique id for each product)
 
-   * product_name (Name of product)
+   * product_name (name of product)
 
    * department_name
 
    * price (cost to customer)
 
-   * stock_quantity (how much of the product is available in stores)
+   * stock_quantity (how much of the product is available in store)
 
-4. Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table).
+4. I populated this database with 10 different products. (I inserted "mock" data rows into this database and table.)
 
-5. Then create a Node application called `bamazonCustomer.js`. Running this application will first display all of the items available for sale. Include the ids, names, and prices of products for sale.
+5. I created a Node application called `bamazonCustomer.js`. Running this application first prompts the user: `Would you like to [SHOP] for an item or [EXIT]?`
 
-6. The app should then prompt users with two messages.
+   * If the user selects [SHOP], it displays all of the items available for sale with their item_ids, product names, department names, prices, and stock quantities.
+   * If the user selects [EXIT], it exits the program.
 
-   * The first should ask them the ID of the product they would like to buy.
-   * The second message should ask how many units of the product they would like to buy.
+6. The app then prompts the user with two messages:
 
-7. Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
+   * The first message asks the user, `What is the item's product ID that you want to buy?`
+   * The second message asks the user, `How many do you want to buy?`
 
-   * If not, the app should log a phrase like `Insufficient quantity!`, and then prevent the order from going through.
+7. Once the customer has placed the order, the application checks if the store has enough of the product to meet the customer's request.
 
-8. However, if your store _does_ have enough of the product, you should fulfill the customer's order.
-   * This means updating the SQL database to reflect the remaining quantity.
-   * Once the update goes through, show the customer the total cost of their purchase.
+   * If it does, the app logs the phrase `Your order was placed successfully`, and then prompts the user to shop or exit.
 
-- - -
+   * If not, the app logs, `We're sorry. Insufficient product quantity. Please select another item`, and then prevents the order from processing.
 
-* If this activity took you between 8-10 hours, then you've put enough time into this assignment. Feel free to stop here -- unless you want to take on the next challenge.
+8. However, if the storefront has enough of the product, it processes the customer's order.
+   * The SQL database updates to reflect the remaining quantity.
+   * Once the update processes, the customer is shown the total cost of their purchase.
 
-- - -
+
+
+
+
+### Functionality
+
+1. LIRI can search Spotify for songs, Bands in Town for concerts, and OMDB for movies. The liri.js accepts the following four commands:
+
+   * `concert-this`
+
+   * `spotify-this-song`
+
+   * `movie-this`
+
+   * `do-what-it-says`
+
+### What Each Command Does
+
+1. `node liri.js concert-this <artist/band name>`
+
+   * Using this command, LIRI searches the Bands in Town Artist Events API for an artist/band and displays the following event information in the terminal/bash window:
+
+     * Venue name
+
+     * Venue location
+
+     * Event date (in the format "MM/DD/YYYY")
+
+    `Example: node liri.js concert-this ZZ Top`
+
+    `Output:`  
+
+![Example: ZZ Top](screenshots/concert_this_zz_top.png)
+
+2. `node liri.js spotify-this-song '<song name>'`
+
+   * Using this command, LIRI searches the Spotify API and displays the following song information in the terminal/bash window:
+
+     * Artist/band
+
+     * Song name
+
+     * Song preview URL from Spotify
+
+     * Album
+
+   `Example: node liri.js spotify-this-song Surrender`
+
+      `Output:`
+
+![Example: Surrender](screenshots/spotify_this_song_surrender.png)
+
+   * If the user does not input a song, by default the program displays data for the song "The Sign" by Ace of Base.
+
+      `Output:`
+
+![default](screenshots/spotify_this_song_default.png)
+
+3. `node liri.js movie-this '<movie name>'`
+
+   * Using this command, LIRI searches the OMDB API and displays the following movie information in the terminal/bash window:
+
+     
+      * Movie title
+      * Release year
+      * IMDB movie rating
+      * Rotten Tomatoes movie rating
+      * Country of origin
+      * Language
+      * Plot
+      * Actors
+  
+    `Example: node liri.js movie-this Aquaman`
+
+    `Output:`  
+
+![Example: Aquaman](screenshots/movie_this_aquaman.png)
+
+   * If the user does not input a movie, by default the program displays data for the movie Mr. Nobody.
+
+      `Example: node liri.js movie-this`
+
+      `Output:`
+
+![default](screenshots/movie_this_default.png)
+
+4. `node liri.js do-what-it-says`
+
+   * Using this command and the `fs` Node package, LIRI reads the text in random.txt and runs the specified command and text:
+
+     * It runs `spotify-this-song` for the specified song in random.txt.
+
+      `Example: node liri.js do-what-it-says`
+
+      `spotify-this-song, I Want It That Way`
+
+      `Output:`
+
+![Example: I Want It That Way](screenshots/do_what_it_says_spotify_this_song.png)
+
+
+   * It runs `concert-this` for the specified artist/band in random.txt.
+
+      `Example: node liri.js do-what-it-says`
+
+      `concert-this, Metallica`
+
+      `Output:`
+
+![Example: Metallica](screenshots/do_what_it_says_concert_this.png)
+
+   * It runs `movie-this` for the specified movie in random.txt.
+
+      `Example: node liri.js do-what-it-says`
+
+      `movie-this, Star Wars`
+
+      `Output:`
+
+![Example: Star Wars](screenshots/do_what_it_says_movie_this.png)
+
+
+
 
 ### Challenge #2: Manager View (Next Level)
 
