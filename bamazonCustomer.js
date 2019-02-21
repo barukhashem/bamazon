@@ -52,7 +52,7 @@ function queryItems() {
                 {
                     name: "item",
                     type: "input",
-                    message: "What is the item's product ID that you want to buy?"
+                    message: "What is the item ID for the product you want to buy?"
                 },
                 {
                     name: "quantity",
@@ -75,8 +75,6 @@ function queryItems() {
                     }
                 }
 
-                // console.log(chosenItem);
-
                 // This determines if product quantity is sufficient:
                 if (chosenItem.stock_quantity >= parseInt(answer.quantity)) {
                     // If product quantity is sufficient, this updates the db, notifies the user of successful order placement, then starts over:
@@ -96,11 +94,10 @@ function queryItems() {
                             start();
                         }
                     );
-                    // console.log(query.sql);
                 }
                 else {
                     // If insufficient product quantity, then this notifies the user of insufficient product quantity, apologizes, then starts over:
-                    console.log("We're sorry. Insufficient product quantity. Please select another item.");
+                    console.log("We're sorry. This item is currently out of stock. Please select another item.");
                     // This re-prompts the user to shop or exit:
                     start();
                 }
